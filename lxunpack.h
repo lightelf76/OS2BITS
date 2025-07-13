@@ -48,7 +48,14 @@ int16_t lx_unpack1(uint8_t *dst, uint8_t *src, int16_t src_size)
 
     while (src_size > 0)
     {
+        // first two bytes are the number of repetitions
         nr = src[0] | ( (uint16_t)src[1] << 16);
+        if (!nr)
+        {
+            // end marker
+            break;
+        }
+        // second two bytes are the length of repeated literal
         len = src[2] | ( (uint16_t)src[3] << 16);
         src += 4;
         src_size -= len + 4;
@@ -123,7 +130,7 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                         else
                         {
                             // end marker
-                            return LX_PAGE_SIZE - dst_size;
+                            goto done;
                         }
                     }
                     else
@@ -243,6 +250,7 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                 break;
         }
     }
+done:
     return LX_PAGE_SIZE - dst_size;
 }
 
