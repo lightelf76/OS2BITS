@@ -54,7 +54,7 @@ int16_t lx_unpack1(uint8_t *dst, uint8_t *src, int16_t src_size)
         if (!nr)
         {
             // end marker
-            break;
+            goto done;
         }
         // second two bytes are the length of repeated literal
         len = src[2] | ( (uint16_t)src[3] << 16);
@@ -62,23 +62,24 @@ int16_t lx_unpack1(uint8_t *dst, uint8_t *src, int16_t src_size)
         src_size -= len + 4;
         if (src_size < 0)
         {
-            // out of bounds
-            return -1;
+            goto bad_data;
         }
         while (nr--)
         {
             dst_size -= len;
             if (dst_size < 0)
             {
-                // out of bounds
-                return -1;
+                goto bad_data;
             }
             bcopy(dst, src, len);
             dst += len;
         }
         src += len;
     }
+done:    
     return LX_PAGE_SIZE - dst_size;
+bad_data:
+    return -1;
 }
 
 // unpack one page, packed with EXEPACK:2 
@@ -104,8 +105,7 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                         dst_size -= len;
                         if ((src_size < 0) || (dst_size < 0))
                         {
-                            // out of bounds
-                            return -1;
+                            goto bad_data;
                         }
                         bcopy(dst, &src[1], len);
                         dst += len;
@@ -121,8 +121,7 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                             dst_size -= len;
                             if ((src_size < 0) || (dst_size < 0))
                             {
-                                // out of bounds
-                                return -1;
+                                goto bad_data;
                             }
                             bfill(dst, src[2], len);
                             dst += len;
@@ -130,14 +129,12 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                         }
                         else
                         {
-                            // end marker
                             goto done;
                         }
                     }
                     else
                     {
-                        // bad data
-                        return -1;
+                        goto bad_data;
                     }
                 }
                 break;
@@ -158,8 +155,7 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                     dst_size -= nr;
                     if ((src_size < 0) || (dst_size < 0))
                     {
-                        // out of bounds
-                        return -1;
+                        goto bad_data;
                     }
                     // copy uncomressed bytes, if any
                     bcopy(dst, src, nr);
@@ -167,14 +163,12 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                     src += nr;
                     if (off > (LX_PAGE_SIZE - dst_size))
                     {
-                        // out of bounds
-                        return -1;
+                        goto bad_data;
                     }
                     dst_size -= len;
                     if (dst_size < 0)
                     {
-                        // out of bounds
-                        return -1;
+                        goto bad_data;
                     }
                     // copy repeated bytes
                     bcopy(dst, dst - off, len);
@@ -195,14 +189,12 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                     src_size -= 2;
                     if (off > (LX_PAGE_SIZE - dst_size))
                     {
-                        // out of bounds
-                        return -1;
+                        goto bad_data;
                     }
                     dst_size -= len;
                     if (dst_size < 0)
                     {
-                        // out of bounds
-                        return -1;
+                        goto bad_data;
                     }
                     bcopy(dst, dst - off, len);
                     dst += len;
@@ -225,8 +217,7 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                     dst_size -= nr;
                     if ((src_size < 0) || (dst_size < 0))
                     {
-                        // out of bounds
-                        return -1;
+                        goto bad_data;
                     }
                     // copy uncomressed bytes, if any
                     bcopy(dst, src, nr);
@@ -235,14 +226,12 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                     src_size -= nr;
                     if (off > (LX_PAGE_SIZE - dst_size))
                     {
-                        // out of bounds
-                        return -1;
+                        goto bad_data;
                     }
                     dst_size -= len;
                     if (dst_size < 0)
                     {
-                        // out of bounds
-                        return -1;
+                        goto bad_data;
                     }
                     // copy repeated bytes
                     bcopy(dst, dst - off, len);
@@ -253,6 +242,8 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
     }
 done:
     return LX_PAGE_SIZE - dst_size;
+bad_data:
+    return -1;
 }
 
 #endif // LX_UNPACK_IMPLEMENTATION
