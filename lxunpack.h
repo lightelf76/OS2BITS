@@ -8,7 +8,7 @@
 
 #include <stdint.h>
 
-// LX executable format tied to 4K pages
+// LX executable format uses 4K pages
 #define LX_PAGE_SIZE                   4096
 
 // unpack one page, packed with EXEPACK:1
@@ -157,7 +157,7 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                     {
                         goto bad_data;
                     }
-                    // copy uncomressed bytes, if any
+                    // copy uncompressed bytes, if any
                     bcopy(dst, src, nr);
                     dst += nr;
                     src += nr;
@@ -219,7 +219,7 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                     {
                         goto bad_data;
                     }
-                    // copy uncomressed bytes, if any
+                    // copy uncompressed bytes, if any
                     bcopy(dst, src, nr);
                     dst += nr;
                     src += nr;
