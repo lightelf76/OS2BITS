@@ -19,9 +19,9 @@ typedef struct KDDC
 #pragma pack(pop)
 
 /* KDDC_Flags value */
-/* Test if KDDC is possible */
+/* Only test for KDD support */
 #define KDDC_fTEST                     0x00000001 
-/* Addresses are 0:32 - seems like not implemented */
+/* Seems like not supported: pfnRouter and pStatus are 0:32 */
 #define KDDC_fFLAT                     0x00000010 
 /* Reboot if not KDD debugable */
 #define KDDC_fREBOOT                   0x00000020 
@@ -30,8 +30,12 @@ typedef struct KDDC
 /* Valid flag Mask */
 #define KDDC_fVALID_MASK               0x00000060 
 
-/* KDDC_IRQ is the number of IRQ, used by driver or -1, if driver needs no IRQ.
+/* KDDC_IRQ is the number of IRQ needed for driver or -1 if driver needs no IRQ.
    IRQ-less driver is required for SMP Debug!
+   Router can't use any Kernel services (DevHelp or so). All resources must be
+   allocated before calling REGISTER_KDD.
+   Router must implement basic byte-oriented send/recv/flush, much like UART,
+   parameters for router call are passed in registers.
 */
 
 /* Router commands - at AX register */
@@ -61,8 +65,8 @@ typedef struct KDDC
            CX = KDDC_rmFLUSH_SEND or 
            CX = KDDC_rmFLUSH_RECV
    Return: AX = 0 
-   Remark: seems like both KDDC_rmFLUSH_SEND and CX = KDDC_rmFLUSH_RECV are never set simultaneously
-           buffer must be flushed before return
+   Remark: seems like both KDDC_rmFLUSH_SEND and CX = KDDC_rmFLUSH_RECV are never set
+           simultaneously. Send or recv buffer must be flushed before return
 */
 
 /* Router command modifier - at CX register */
