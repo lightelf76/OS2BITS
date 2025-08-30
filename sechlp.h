@@ -35,29 +35,29 @@ typedef struct {
 #pragma pack(push, 2)
 typedef struct sec_export_s 
 {
-   USHORT  seVersionMajor;
-   USHORT  seVersionMinor;
-   // p16Addr must be a valid 16:16 pBuffer alias (if available) or NULL
-   // Offset is byte offset within file or -1 for current offset
-   ULONG   (* SECCALL SecHlpRead) (ULONG SFN, PULONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, ULONG Offset);
-   ULONG   (* SECCALL SecHlpWrite) (ULONG SFN, PULONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, ULONG Offset);
-   // ulOpenFlags and ulOpenMode are same as used for DosOpen
-   ULONG   (* SECCALL SecHlpOpen) (PSZ pszFileName, PULONG pSFN, ULONG ulOpenFlag, ULONG ulOpenMode);
-   ULONG   (* SECCALL SecHlpClose) (ULONG SFN);
-   ULONG   (* SECCALL SecHlpQFileSize) (ULONG SFN, PULONG pSize);
-   // TYPE can be 0, 1, 2 as for DosSetFilePtr
-   ULONG   (* SECCALL SecHlpChgFilePtr) (ULONG SFN, LONG Offset, ULONG TYPE, PULONG pAbs);
-   ULONG   (* SECCALL SecHlpSFFromSFN) (ULONG SFN);
-   ULONG   (* SECCALL SecHlpFindNext) (PFINDPARMS pParms);
-   ULONG   (* SECCALL SecHlpPathFromSFN) (ULONG SFN);
-   // array of DOS emulation handlers
-   ULONG   *apDemSVC; 
+    USHORT  seVersionMajor;
+    USHORT  seVersionMinor;
+    // p16Addr must be a valid 16:16 pBuffer alias (if available) or NULL
+    // Offset is byte offset within file or -1 for current offset
+    ULONG   (* SECCALL SecHlpRead) (ULONG SFN, PULONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, ULONG Offset);
+    ULONG   (* SECCALL SecHlpWrite) (ULONG SFN, PULONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, ULONG Offset);
+    // ulOpenFlags and ulOpenMode are same as used for DosOpen
+    ULONG   (* SECCALL SecHlpOpen) (PSZ pszFileName, PULONG pSFN, ULONG ulOpenFlag, ULONG ulOpenMode);
+    ULONG   (* SECCALL SecHlpClose) (ULONG SFN);
+    ULONG   (* SECCALL SecHlpQFileSize) (ULONG SFN, PULONG pSize);
+    // TYPE can be 0, 1, 2 as for DosSetFilePtr
+    ULONG   (* SECCALL SecHlpChgFilePtr) (ULONG SFN, LONG Offset, ULONG TYPE, PULONG pAbs);
+    ULONG   (* SECCALL SecHlpSFFromSFN) (ULONG SFN);
+    ULONG   (* SECCALL SecHlpFindNext) (PFINDPARMS pParms);
+    ULONG   (* SECCALL SecHlpPathFromSFN) (ULONG SFN);
+    // array of DOS emulation handlers
+    ULONG   *apDemSVC; 
 #ifdef LARGE_FILE_SUPPORT
-   // parameters are just deduced, to be checked!
-   ULONG   (* SECCALL SecHlpReadL) (ULONG SFN, PLONGLONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, LONGLONG Offset);
-   ULONG   (* SECCALL SecHlpWriteL) (ULONG SFN, PLONGLONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, LONGLONG Offset);
-   ULONG   (* SECCALL SecHlpQFileSizeL) (ULONG SFN, PLONGLONG pSize);
-   ULONG   (* SECCALL SecHlpChgFilePtrL) (ULONG SFN, LONGLONG Offset, ULONG TYPE, PLONGLONG pAbs);
+    // parameters are just deduced, to be checked!
+    ULONG   (* SECCALL SecHlpReadL) (ULONG SFN, PLONGLONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, LONGLONG Offset);
+    ULONG   (* SECCALL SecHlpWriteL) (ULONG SFN, PLONGLONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, LONGLONG Offset);
+    ULONG   (* SECCALL SecHlpQFileSizeL) (ULONG SFN, PLONGLONG pSize);
+    ULONG   (* SECCALL SecHlpChgFilePtrL) (ULONG SFN, LONGLONG Offset, ULONG TYPE, PLONGLONG pAbs);
 #endif
 } sec_export_t;
 #pragma pack(pop)
