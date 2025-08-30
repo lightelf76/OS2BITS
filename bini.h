@@ -3,6 +3,10 @@
 
 #ifndef BINI_IMPLEMENT
 // Prototype for the single INI-read function
+// Parameters:
+//            inst   - instance pointer
+//            buf    - work buffer for names and data
+//            length - length of buffer in bytes
 int read_bini(void* inst, uint8_t *buf, uint32_t length);
 
 // definitions, to be provided by user
