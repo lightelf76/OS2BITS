@@ -1,6 +1,6 @@
 #include <stdint.h>
 // based on the SECPACK secure.h,  with some Long File support findings
-// SecHlp functions are 32-bit flat
+// SecHlp functions are 32-bit flat with 16-bit stack (SS != DS)
 
 #define SECCALL             _System
 #define LARGE_FILE_SUPPORT          
