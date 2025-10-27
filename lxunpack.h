@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: MIT
 #ifndef __H_LX_UNPACK__
 #define __H_LX_UNPACK__
 
