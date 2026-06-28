@@ -1,0 +1,20 @@
+format os2 lx phys option quiet,nostub,mixed1632,map,align=4 
+option description '@#LightElf:0.09#SAMPLE PDD'
+order              
+clname DATA        
+segment DDHEADER   
+clname CODE        
+segment _TEXTSTART 
+segment _TEXT16    
+segment _TEXT      
+segment _TEXTEND   
+name sample.sys 
+file segments.obj 
+file entry.obj 
+file main.obj 
+file ioctl.obj 
+file initcomp.obj 
+segment type DATA SHARED PRELOAD 
+segment class CODE PRELOAD          
+IMPORT Dos32FlatDS DOSCALLS.370  
+lib kee.lib,vdh.lib 
