@@ -78,9 +78,9 @@ typedef struct KDDC
 #define KDDC_rmFLUSH_RECV              0x00000002 
 
 /* Status flags, located within driver */
-/* KDD Comm Active - set/cleared by driver? */
+/* KDD Comm Active - set/cleared by driver to signal connection presence */
 #define KDDC_sfACTIVE                  0x00000001 
-/* KDB Active - set/cleared by Kernel */
+/* KDB Active - set/cleared by Kernel to signal debug session activity */
 #define KDDC_sfKDB_ACTIVE              0x00000002 
 
 #endif /* __H_KERNDBG__ */
