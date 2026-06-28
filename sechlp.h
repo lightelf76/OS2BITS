@@ -54,8 +54,8 @@ typedef struct sec_export_s
     ULONG   *apDemSVC; 
 #ifdef LARGE_FILE_SUPPORT
     // parameters are just deduced, to be checked!
-    ULONG   (* SECCALL SecHlpReadL) (ULONG SFN, PLONGLONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, LONGLONG Offset);
-    ULONG   (* SECCALL SecHlpWriteL) (ULONG SFN, PLONGLONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, LONGLONG Offset);
+    ULONG   (* SECCALL SecHlpReadL) (ULONG SFN, PULONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, LONGLONG Offset);
+    ULONG   (* SECCALL SecHlpWriteL) (ULONG SFN, PULONG pcbBytes, PUCHAR pBuffer, ULONG p16Addr, LONGLONG Offset);
     ULONG   (* SECCALL SecHlpQFileSizeL) (ULONG SFN, PLONGLONG pSize);
     ULONG   (* SECCALL SecHlpChgFilePtrL) (ULONG SFN, LONGLONG Offset, ULONG TYPE, PLONGLONG pAbs);
 #endif
