@@ -171,6 +171,10 @@ int read_bini(void* inst, uint8_t *buf, uint32_t length)
                 }
                 // next KEY
                 key_offset = key.next_key;
+                if (key_offset > hdr.file_size)
+                {
+                    return BINI_ERR_FILE;
+                }
             }
         }
         // next APP
