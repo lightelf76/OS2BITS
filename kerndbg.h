@@ -65,7 +65,7 @@ typedef struct KDDC
            CX = KDDC_rmFLUSH_SEND or 
            CX = KDDC_rmFLUSH_RECV
    Return: AX = 0 
-   Remark: seems like both KDDC_rmFLUSH_SEND and CX = KDDC_rmFLUSH_RECV are never set
+   Remark: seems like KDDC_rmFLUSH_SEND and KDDC_rmFLUSH_RECV are never set
            simultaneously. Send or recv buffer must be flushed before return
 */
 
