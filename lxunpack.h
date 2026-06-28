@@ -129,6 +129,7 @@ int16_t lx_unpack2(uint8_t *dst, uint8_t *src, int16_t src_size)
                         }
                         else
                         {
+                            // end marker
                             goto done;
                         }
                     }
