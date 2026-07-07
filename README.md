@@ -8,3 +8,4 @@ sechlp.h - OS2KRNL SES helpers, useful for file access at Ring0
 
 kerndbg.h - some info about API between OS/2 Kernel Debugger (KDB) and driver like KDBNET.SYS
 
+SAMPLE32 - skeleton 32-bit OS/2 driver
