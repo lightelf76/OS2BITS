@@ -3,7 +3,7 @@
 #define __H_LX_UNPACK__
 
 #ifdef __cplusplus
-#extern "C" {
+extern "C" {
 #endif
 
 #include <stdint.h>
